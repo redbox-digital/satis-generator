@@ -1,0 +1,25 @@
+{
+    "name": "rbd/satis-generator",
+    "description": "A little script to generate a json file for Satis to consume",
+    "keywords": ["satis", "generator", "composer", "repository"],
+    "homepage": "https://github.com/redbox-digital/satis-generator",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "~4",
+        "symfony/console": "~2.5",
+        "symfony/config": "~2.5",
+        "symfony/yaml": "~2.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Max Bucknell",
+            "email": "max.bucknell@redboxdigital.com"
+        }
+    ],
+    "bin": ["bin/satis-generate"],
+    "autoload": {
+        "psr-0": { "RBD\\SatisGenerator": "src/" }
+    }
+}
+

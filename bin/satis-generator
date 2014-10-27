@@ -1,0 +1,46 @@
+#! /usr/bin/env php
+<?php
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Definition\Processor;
+
+use RBD\SatisGenerator\Config\Loader\YamlFileLoader;
+use RBD\SatisGenerator\Config\Configuration;
+use RBD\SatisGenerator\Console\Application;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+function main()
+{
+    $configDirectories = array(
+        getenv('HOME'),
+        getcwd()
+    );
+
+    $locator = new FileLocator($configDirectories);
+    $loader = new YamlFileLoader($locator);
+
+    $configValues = $loader->load($locator->locate('satis-generator.yml'));
+
+    $processor = new Processor();
+    $configuration = new Configuration();
+
+    try {
+        $processedConfiguration = $processor->processConfiguration(
+            $configuration,
+            $configValues
+        );
+
+        $application = new Application($processedConfiguration);
+
+        $application->run();
+    } catch (Exception $e) {
+        // validation error
+        echo $e->getMessage() . PHP_EOL;
+    }
+}
+
+main();
+
