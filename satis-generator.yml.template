@@ -1,0 +1,12 @@
+satis-generator:
+    output:
+        name:
+        description:
+        homepage:
+        file:
+    connection:
+        api:
+        account:
+        username:
+        password:
+
